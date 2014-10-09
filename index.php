@@ -16,35 +16,38 @@
         
         
         $storlek = $_GET["textruta"];
-
-
-
+        
         $namn = array("Theochdor", "Truls", "Vilhelm", "Bengan", "Anders", "Martin", "Lars", "Erik", "Knut", "Gun");
-        $size = sizeof($namn) - 1;
-        $not_used = array("Theochdor", "Truls", "Vilhelm", "Bengan", "Anders", "Martin", "Lars", "Erik", "Knut", "Gun");
-        $siffror = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        echo "<ol>";
-        $i = intval($storlek);
-        if (in_array($i, $siffror)) {
-            while ($i > 0) {
-
+        
+        function slumpa($nummer, $array){
+            $size = sizeof($array) - 1;
+            shuffle($array);
+            $i = 10;
+            while($i - $nummer > 0){
                 $slump = rand(0, $size);
-                if (in_array($namn[$slump], $not_used)) {
-                    echo "<li>" . $namn[$slump] . "</li>" . '<br>';
-                    unset($not_used[$slump]);
-                    $i--;
-                } else {
-                    
-                }
+                array_splice($array, $slump, 1);
+                $i --;
+                $size --;
             }
-        } else {
-            echo $storlek . " är inte ett nummer mellan 1-10. Skriv ett bättre värde din dumme fan.";
+               return $array;
         }
-
-        echo "</ol>";}
+        
+        
+        if($storlek <= 10 and $storlek > 0){
+        function skriv_ut($array){
+            echo '<ol>';
+            foreach($array as $name){
+                echo "<li>" . $name . "</li>";
+            }
+            echo '</ol>';
+        }
+        
+        $slumpad_array = slumpa($storlek, $namn);
+        skriv_ut($slumpad_array);
+        }
         else{
-            echo "Mata in nåt då, förielvete!";
-            
+            echo "Du har gjort fel, din fuling! Var vänlig skriv in ett tal mellan 1-10, dumfan!";
+        }
         }
         ?>
     </body>
